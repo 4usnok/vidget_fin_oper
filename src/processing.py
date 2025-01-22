@@ -1,4 +1,4 @@
-def filter_by_state(set_of_dict: list, state="EXECUTED") -> list:
+def filter_by_state(set_of_dict: list[dict], state: str = "EXECUTED") -> list[dict]:
     """
     Функция принимает список словарей и опционально значение для ключа state
     (по умолчанию "EXECUTED"). Функция возвращает новый список словарей,
