@@ -1,0 +1,101 @@
+from typing import Generator
+
+transactions = [
+    {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод организации",
+        "from": "Счет 75106830613657916952",
+        "to": "Счет 11776614605963066702",
+    },
+    {
+        "id": 142264268,
+        "state": "EXECUTED",
+        "date": "2019-04-04T23:20:05.206878",
+        "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод со счета на счет",
+        "from": "Счет 19708645243227258542",
+        "to": "Счет 75651667383060284188",
+    },
+    {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод со счета на счет",
+        "from": "Счет 75106830613657916952",
+        "to": "Счет 11776614605963066702",
+    },
+    {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод с карты на карту",
+        "from": "Счет 75106830613657916952",
+        "to": "Счет 11776614605963066702",
+    },
+    {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод организации",
+        "from": "Счет 75106830613657916952",
+        "to": "Счет 11776614605963066702",
+    },
+]
+
+
+def filter_by_currency(transactions, key) -> Generator[list, list]:
+    """
+    Функция принимает на вход список словарей, представляющих транзакции.
+    Возвращает итератор, который поочередно выдает транзакции,
+    где валюта операции соответствует заданной.
+    В нашем случае - "USD"
+    """
+    for transaction in transactions:
+        if transaction["operationAmount"]["currency"]["code"] == key:
+            yield transaction
+
+
+# В этом генераторе, мы задаём количество выведенных на экран списков словарей
+usd_transactions = filter_by_currency(transactions, "USD")
+for _ in range(2):
+    print(next(usd_transactions))
+
+
+def transaction_descriptions(transactions) -> Generator[list, str]:
+    """
+    Генератор, принимает список словарей с транзакциями и
+    возвращает описание каждой операции по очереди.
+    """
+    for transaction in transactions:
+        yield transaction["description"]
+
+
+descriptions = transaction_descriptions(transactions)
+for _ in range(5):
+    print(next(descriptions))
+
+
+def card_number_generator(start, stop) -> Generator[str, int]:
+    """
+    Генератор может сгенерировать номера карт в заданном диапазоне
+    от 0000 0000 0000 0001 до 9999 9999 9999 9999.
+    """
+    while True:
+        encryption = str(start)
+        encrypt = encryption.zfill(16)
+        partition = f"{encrypt[0:4]} {encrypt[4:8]} {encrypt[8:12]} {encrypt[12:16]}"
+        yield partition
+        start += 1
+        if start > stop:
+            break
+
+
+# В генераторе, мы задаем интервал, в котором начальное значение будет являться - start, а конечное - stop
+for card_number in card_number_generator(1, 5):
+    print(card_number)
