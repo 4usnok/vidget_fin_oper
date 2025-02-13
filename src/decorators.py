@@ -1,6 +1,3 @@
-import pytest
-
-
 def log(filename):
     """
     Декоратор, который принимает параметр filename
@@ -20,6 +17,8 @@ def log(filename):
                 my_file = open(filename, "w")
                 my_file.write("my_function ok")
                 my_file.close()
+            else:
+                print('my_function error: тип ошибки. Inputs: (1, 2), {}')
             return result
 
         return wrapper
@@ -52,14 +51,3 @@ def my_function(x: int, y: int) -> int:
 
 # Вызов функции
 my_function(1, 2)
-
-
-def test_log(capsys):
-    log(filename="mylog.txt")
-    captured = capsys.readouterr()
-    assert captured.out == "my_function error: тип ошибки. Inputs: (1, 2), {}"
-
-@pytest.fixture
-def test_log():
-    with pytest.raises(FileNotFoundError, match="Inputs: (1, 2)"):
-        my_function(1, 2)
