@@ -1,1 +1,1 @@
-"mylog.txt"
+my_function ok
