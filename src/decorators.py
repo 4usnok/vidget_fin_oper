@@ -18,14 +18,14 @@ def log(filename=None):
             try:
                 result = func(*args, **kwargs)
                 if filename is None:
-                    logger.info(f'{func.__name__} ok')
+                    print(f'{func.__name__} ok')
                 else:
                     with open(filename, "r+") as file:
                         file.write(f'{func.__name__} ok')
                 return result
             except Exception as e:
                 if filename is None:
-                    logger.info(f'{func.__name__} error: {e}. inputs: {args}, {kwargs}')
+                    print(f'{func.__name__} error: {e}. inputs: {args}, {kwargs}')
                 else:
                     with open(filename, "r+") as file:
                         file.write(f'{func.__name__} error: {e}. inputs: {args}, {kwargs}')
