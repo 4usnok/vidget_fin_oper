@@ -1,4 +1,7 @@
-def log(filename):
+from loguru import logger
+
+
+def log(filename=None):
     """
     Декоратор, который принимает параметр filename
     """
@@ -8,23 +11,27 @@ def log(filename):
         Декоратор, который оборачивает функцию и добавляет дополнительное поведение.
         """
 
-        def wrapper(*args):
+        def wrapper(*args, **kwargs):
             """
             Функция-обёртка, выполняющая дополнительные действия до и после вызова func.
             """
-            result = func(*args)
-            if not filename:
-                my_file = open(filename, "w")
-                my_file.write("my_function ok")
-                my_file.close()
-            else:
-                print('my_function error: тип ошибки. Inputs: (1, 2), {}')
-            return result
-
+            try:
+                result = func(*args, **kwargs)
+                if filename is None:
+                    logger.info(f'{func.__name__} ok')
+                else:
+                    with open(filename, "r+") as file:
+                        file.write(f'{func.__name__} ok')
+                return result
+            except Exception as e:
+                if filename is None:
+                    logger.info(f'{func.__name__} error: {e}. inputs: {args}, {kwargs}')
+                else:
+                    with open(filename, "r+") as file:
+                        file.write(f'{func.__name__} error: {e}. inputs: {args}, {kwargs}')
         return wrapper
 
     return my_decorator
-
 
 def predicate_log_positive(x, y):
     """
@@ -42,12 +49,9 @@ def predicate_log_negative(x, y):
 
 # Применение декоратора log
 @log(filename="mylog.txt")
-def my_function(x: int, y: int) -> int:
-    """
-    Декоратор суммирует параметры
-    """
+def my_function_file(x, y):
     return x + y
 
-
-# Вызов функции
-my_function(1, 2)
+@log()
+def my_function(x, y):
+    return x + y
