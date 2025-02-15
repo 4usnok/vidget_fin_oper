@@ -5,5 +5,3 @@ def test_log(capsys):
     my_function(1, 2)
     captured = capsys.readouterr()
     assert captured.out == "my_function ok\n"
-
-
