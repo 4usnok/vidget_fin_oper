@@ -49,7 +49,7 @@ transactions = [
 ]
 
 
-def filter_by_currency(transactions, key) -> Generator[list, list]:
+def filter_by_currency(transactions: list, key: str) -> Generator[list, list]:
     """
     Функция принимает на вход список словарей, представляющих транзакции.
     Возвращает итератор, который поочередно выдает транзакции,
@@ -67,7 +67,7 @@ for _ in range(2):
     print(next(usd_transactions))
 
 
-def transaction_descriptions(transactions) -> Generator[list, str]:
+def transaction_descriptions(transactions: list) -> Generator[list, str]:
     """
     Генератор, принимает список словарей с транзакциями и
     возвращает описание каждой операции по очереди.
@@ -81,7 +81,7 @@ for _ in range(5):
     print(next(descriptions))
 
 
-def card_number_generator(start, stop) -> Generator[str, int]:
+def card_number_generator(start: int, stop: int) -> Generator[str, int]:
     """
     Генератор может сгенерировать номера карт в заданном диапазоне
     от 0000 0000 0000 0001 до 9999 9999 9999 9999.
