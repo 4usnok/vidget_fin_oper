@@ -1,6 +1,3 @@
-from loguru import logger
-
-
 def log(filename=None):
     """
     Декоратор, который принимает параметр filename
