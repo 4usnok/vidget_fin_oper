@@ -1,39 +1,31 @@
+import os
 import requests
+from unittest.mock import patch
+from dotenv import load_dotenv
 
 
-name_usd = 'USD'
-name_eur = 'EUR'
-to = 'RUB'
+load_dotenv('.env')
 
-def func_conv(amount: float) -> float:
+API_KEY = os.getenv('API_KEY')
+
+# Создадим функцию, которая будет отправлять API-запрос
+def conv_value(amount: float, value: str) -> int:
     """
-    принимает на вход транзакцию и возвращает сумму транзакции (amount) в рублях.
+    Принимает на вход название валют EUR или USD и конвертирует в RUB
     """
-    # Первый делом создадим переменные, в которые заключим
-    # Наши API-ключи
-    url_usd = f"https://api.apilayer.com/exchangerates_data/convert?to={to}&from={name_usd}&amount={amount}"
-    url_eur = f"https://api.apilayer.com/exchangerates_data/convert?to={to}&from={name_eur}&amount={amount}"
-    # Создадим условия, которые буду принимать и проверять, какую валюту нам нужно конвертировать в RUB
-    if name_usd == 'USD':
-        payload = {}
-        headers = {
-            "apikey": "RlhFpAI7yYNl6Dj6flaYKxE3ye2A6d3g"
-        }
-        response_1 = requests.request("GET", url_usd, headers=headers, data=payload)
-        status_code_1 = response_1.status_code
-        result_1 = response_1.text
-        data_1 = response_1.json()
-        return data_1['result']
-    elif name_eur == 'EUR':
-        payload = {}
-        headers = {
-            "apikey": "RlhFpAI7yYNl6Dj6flaYKxE3ye2A6d3g"
-        }
-        response_2 = requests.request("GET", url_eur, headers=headers, data=payload)
-        status_code_2 = response_2.status_code
-        result_2 = response_2.text
-        data_2 = response_2.json()
-        return data_2['result']
+    # Создадим переменную, в которую поместим ссылку на API
+    url = f"https://v6.exchangerate-api.com/v6/{API_KEY}/latest/{value}"
+    response = requests.get(url)
+    if response.json()['base_code'] == 'USD' or response.json()['base_code'] == 'EUR':
+        result = response.json()['conversion_rates']['RUB']
+        return result * amount
+
+# Распечатаем на экран результат конвертирования валют в рубли
+print(conv_value(2, 'USD'))
 
 
-print(func_conv(1))
+@patch('requests.get')
+def test_conv_value(mock_get):
+    mock_get.return_value.json.return_value = {'amount': 'value'}
+    assert conv_value(1, 'USD') == 1
+    mock_get.assert_called_once_with(f"https://v6.exchangerate-api.com/v6/{API_KEY}/latest/USD")
