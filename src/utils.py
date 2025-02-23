@@ -1,5 +1,4 @@
 import json
-import os
 
 
 def func_json(file_path):
