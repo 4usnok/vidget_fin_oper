@@ -28,3 +28,4 @@ def test_trans_value_in_usd(mock_get):
     }
     mock_get.return_value.json.return_value = {"conversion_rates": {"RUB": 1}}
     assert trans_value(new_div) == 1.00
+
