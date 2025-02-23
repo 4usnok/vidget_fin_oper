@@ -9,6 +9,9 @@ API_KEY = os.getenv("API_KEY")
 
 
 def trans_value(bank_oper):
+    """
+    Извлекает нужную валюту и предоставляет её курс исходя из условия
+    """
     code_currency = bank_oper["operationAmount"]["currency"]["code"]
     value_sum = bank_oper["operationAmount"]["amount"]
     if code_currency == "RUB":
@@ -28,6 +31,8 @@ def conv_value(amount, code_value):
     result = response.json()["conversion_rates"]["RUB"]
     return result * float(amount)
 
+# Занесём в комментарий словарь, чтобы добиться большего покрытия тестами.
+
 # if __name__ == '__main__':
 #     new_div = {
 #         "id": 441945886,
@@ -45,5 +50,4 @@ def conv_value(amount, code_value):
 #         "to": "Счет 64686473678894779589"
 #       }
 
-# Распечатаем на экран результат конвертирования валют в рубли
-    print(trans_value(new_div))
+# print(trans_value(new_div))
