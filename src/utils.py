@@ -10,13 +10,11 @@ def func_json(file_path: str) -> str:
     # Создадим условия, которые будут проверять файл
     # Если он пустой, содержит не список или не найден, функция возвращает пустой список.
     try:
-        if not os.stat(file_path).st_size == 0:
-            with open(file_path, encoding="utf-8") as json_file:
-                return json.load(json_file)
+        with open(file_path, encoding="utf-8") as json_file:
+            return json.load(json_file)
     except FileNotFoundError:
-        return "[]"
+        return []
     except json.JSONDecodeError:
-        print("Ошибка декодирования JSON в файле operations.json!")
-
+        return []
 
 print(func_json("D:\\Projects_from_skypro\\PythonProject_1\\data\\operations.json"))
