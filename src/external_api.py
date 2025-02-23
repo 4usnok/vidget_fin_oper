@@ -28,22 +28,22 @@ def conv_value(amount, code_value):
     result = response.json()["conversion_rates"]["RUB"]
     return result * float(amount)
 
-
-new_div = {
-    "id": 441945886,
-    "state": "EXECUTED",
-    "date": "2019-08-26T10:50:58.294041",
-    "operationAmount": {
-      "amount": "31957.58",
-      "currency": {
-        "name": "руб.",
-        "code": "USD"
+if __name__ == '__main__':
+    new_div = {
+        "id": 441945886,
+        "state": "EXECUTED",
+        "date": "2019-08-26T10:50:58.294041",
+        "operationAmount": {
+          "amount": "31957.58",
+          "currency": {
+            "name": "руб.",
+            "code": "USD"
+          }
+        },
+        "description": "Перевод организации",
+        "from": "Maestro 1596837868705199",
+        "to": "Счет 64686473678894779589"
       }
-    },
-    "description": "Перевод организации",
-    "from": "Maestro 1596837868705199",
-    "to": "Счет 64686473678894779589"
-  }
 
 # Распечатаем на экран результат конвертирования валют в рубли
-print(trans_value(new_div))
+    print(trans_value(new_div))
