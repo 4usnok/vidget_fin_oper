@@ -12,15 +12,15 @@ def csv_trans(path_only_csv):
     """
     Функция считывания финансовых операций файла с расширением CSV
     """
-    with open(path_only_csv, "r", newline="") as file:
-        csv_reader = csv.DictReader(file, delimiter=";")
+    with open(path_only_csv) as file:
+        csv_reader = csv.DictReader(file)
         # Напишем цикл, который будет добавлять словари в наш пустой список
         for row in csv_reader:
             new_list_csv.append(row)
         return new_list_csv
 
 
-def trans_excel(path_only_excel):
+def excel_trans(path_only_excel):
     """
     Функция считывания финансовых операций файла с расширением XLSX
     """
@@ -31,5 +31,5 @@ def trans_excel(path_only_excel):
     return new_list_excel
 
 
-print(trans_excel(path_excel))
+# print(excel_trans(path_excel))
 print(csv_trans(path_csv))
