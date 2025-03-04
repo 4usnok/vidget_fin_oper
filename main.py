@@ -2,11 +2,12 @@ import re
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
-from src.re_func import new_func, new_func_2
+from src.re_func import filter_transactions_by_description, count_operations_by_category
 import json
 
 
 def main():
+
      hello_input = input(f'Привет! Добро пожаловать в программу работы с банковскими транзакциями. '
                        f'\nВыберите необходимый пункт меню:'
                        '\n1. Получить информацию о транзакциях из JSON-файла'
