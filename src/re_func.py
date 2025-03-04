@@ -3,7 +3,7 @@ import re
 import json
 
 
-url_json = "D:\\Projects_from_skypro\\PythonProject_1\\data\\file_work.json"
+url_json = "E:\\Project_skypro\\DZ_1\\pythonProject\\proj_1\\data\\file_work.json"
 
 list_json = []
 list_new = []
@@ -15,7 +15,7 @@ with open(url_json, "r", encoding="utf-8") as json_file:
         list_json.append(row)
 
 
-def new_func(url_input, str_input):
+def filter_transactions_by_description(url_input, str_input):
     """
     Функция принимает список словарей с данными о банковских операциях и строку поиска,
     а возвращает список словарей, у которых в описании есть данная строка
@@ -31,29 +31,29 @@ def new_func(url_input, str_input):
     return list_new
 
 
-def new_func_2(url_input_2, description):
+def count_operations_by_category(url_input_2, description):
     """
     Функция принимает список словарей с данными о банковских операциях и список категорий операций,
     а возвращает словарь, в котором ключи — это названия категорий,
     а значения — это количество операций в каждой категории
     """
     # Создаём пустой список, в который будем добавлять новый словарь, требуемый по ТЗ
-    new_dict = []
+    list_for_dict= []
     # Создаём переменную для метода Counter для подсчёта значений для определенного ключа
     names_dict = collections.Counter()
     # Создаём цикл, который достанет словарь из списка
-    for only_dict in url_input_2:
+    for dict_in_list in url_input_2:
         # Создаём цикл, который будет перебирать ключи и значения словаря
-        for key, val in only_dict.items():
+        for key, val in dict_in_list.items():
             # Напишем условия, который будут определять наличие ключа из словаря в передаваемом списке
             if key in description:
                 # Если условие True, тогда мы добавляем словарь в пустой список
-                new_dict.append({key: val})
+                list_for_dict.append({key: val})
                 # При совпадении значений, увеличим счетчик на 1
                 names_dict[key] += 1
 
     return names_dict
 
 
-print(new_func(list_json, 'EXECUTED'))
-print(new_func_2(list_json, description=['date']))
+print(filter_transactions_by_description(list_json, 'EXECUTED'))
+print(count_operations_by_category(list_json, description=['date']))

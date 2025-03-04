@@ -1,5 +1,4 @@
 import re
-
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
@@ -31,13 +30,6 @@ def main():
          print(f'Статус операции {str_input_upper} недоступен. '
                f'\nВведите статус, по которому необходимо выполнить фильтрацию. '
                f'\nДоступные для фильтровки статусы: EXECUTED, CANCELED, PENDING')
-
-
-    date_input = input('Отсортировать операции по дате? Да/Нет')
-    if date_input == 'Да':
-        print("Операции будут отсортированы по дате.")
-    else:
-        print("Операции не будут отсортированы по дате.")
 
 
 if __name__ == '__main__':

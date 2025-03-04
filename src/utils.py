@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger('utils.py')
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('D:\\Projects_from_skypro\\PythonProject_1\\logs\\utils.log', mode='w')
+file_handler = logging.FileHandler('E:\\Project_skypro\\DZ_1\\pythonProject\\proj_1\\logs\\utils.log', mode='w')
 file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
@@ -35,4 +35,4 @@ def func_json(file_path):
         logging.error(f'Произошла ошибка: {ex}')
 
 
-print(func_json("D:\\Projects_from_skypro\\PythonProject_1\\data\\operations.json"))
+print(func_json("E:\\Project_skypro\\DZ_1\\pythonProject\\proj_1\\data\\operations.json"))
