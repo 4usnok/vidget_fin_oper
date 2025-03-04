@@ -55,5 +55,5 @@ def new_func_2(url_input_2, description):
     return names_dict
 
 
-# print(new_func(list_json, 'EXECUTED'))
-# print(new_func_2(list_json, description=['date']))
+print(new_func(list_json, 'EXECUTED'))
+print(new_func_2(list_json, description=['date']))
