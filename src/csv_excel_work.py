@@ -32,4 +32,5 @@ def excel_trans(path_only_excel):
 
 
 # print(excel_trans(path_excel))
-print(csv_trans(path_csv))
+# print(csv_trans(path_csv))
+
