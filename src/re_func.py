@@ -8,10 +8,10 @@ def filter_transactions_by_description(transactions: dict, search_string: str) -
     Функция принимает список словарей с данными о банковских операциях и строку поиска,
     а возвращает список словарей, у которых в описании есть данная строка
     """
-    # Для начала нужно раскрыть json файл
     list_new = []
+    # Напишем цикл, который пройдётся по списку словарей
     for url_dict in transactions:
-        # Напишем цикл, который перебирает словари
+    # По условию, если строка присутствует в словаре или есть первое вхождение, тогда добавляется в список словарь
         if "description" in url_dict and re.search(search_string, url_dict["description"]):
             list_new.append(url_dict)
     return list_new
@@ -25,6 +25,7 @@ def count_operations_by_category(transactions:list, descriptions: list) -> dict:
     """
     list_desc = []
     for transaction in transactions:
+    # Напишем условие, при котором происходит подсчёт значений заданных ключей
         if "description" in transaction and transaction["description"] in descriptions:
             list_desc.append(transaction["description"])
     return collections.Counter(list_desc)
