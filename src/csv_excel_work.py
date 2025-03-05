@@ -2,8 +2,8 @@ import csv
 
 import pandas as pd
 # Создадим по переменной, в которых пропишем относительные пути до наших файлов
-path_csv = "E:\\Project_skypro\\DZ_1\\pythonProject\\proj_1\\data\\transactions.csv"
-path_excel = "E:\\Project_skypro\\DZ_1\\pythonProject\\proj_1\\data\\transactions_excel.xlsx"
+path_csv = "../data/transactions.csv"
+path_excel = "../data/transactions_excel.xlsx"
 new_list_csv = []
 new_list_excel = []
 
