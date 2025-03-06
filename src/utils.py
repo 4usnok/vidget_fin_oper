@@ -35,4 +35,4 @@ def func_json(file_path):
         logging.error(f'Произошла ошибка: {ex}')
 
 
-print(func_json("E:\\Project_skypro\\DZ_1\\pythonProject\\proj_1\\data\\operations.json"))
+print(func_json(".../data/operations.json"))

@@ -1,9 +1,10 @@
-from datetime import datetime
 import csv
-from proj_1.src.csv_excel_work import new_list_excel
-from proj_1.src.generators import transactions
-from src.re_func import list_json
+import json
+import pandas as pd
+from openpyxl import load_workbook
 
+from src.csv_excel_work import new_list_excel
+from src.generators import transactions
 
 
 def main():
@@ -33,45 +34,40 @@ def main():
               f'\nВведите статус, по которому необходимо выполнить фильтрацию. '
               f'\nДоступные для фильтровки статусы: EXECUTED, CANCELED, PENDING')
 
-# Сортируем по дате
+# Сортируем по дате:
 # Отсортируем json
     if hello_input == '1':
         date_input = input('Отсортировать операции по дате? Да/Нет\n')
-        if date_input == 'Да':
+        if date_input.upper() == 'Да'.upper():
             sort_order = input('\nОтсортировать по возрастанию или по убыванию?\n')
-            if sort_order == 'по возрастанию':
-                print(sorted(list_json, key=lambda x: x["date"], reverse=False))
-            elif sort_order == 'по убыванию':
-                print(sorted(list_json, key=lambda x: x["date"], reverse=True))
-
+            if sort_order.upper() == 'по возрастанию'.upper():
+                with open('data/file_work.json', encoding="utf-8") as json_file:
+                    result = json.load(json_file)
+                    print(sorted(result, key=lambda x: x["date"], reverse=False))
+            elif sort_order.upper() == 'по убыванию'.upper():
+                with open('data/file_work.json', encoding="utf-8") as json_file:
+                    result = json.load(json_file)
+                    print(sorted(result, key=lambda x: x["date"], reverse=True))
 
 # Отсортируем csv
     elif hello_input == '2':
-        with open(r'E:\Project_skypro\DZ_1\pythonProject\proj_1\data\transactions.csv',
-                  newline='', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for transaction in transactions:
-                if 'date' in transaction:
-                    transaction['date'] = datetime.strptime(transaction['date'], '%Y-%m-%dT%H:%M:%S')
-                date_input = input('Отсортировать операции по дате? Да/Нет\n')
-                if date_input == 'Да':
-                    sort_order = input('\nОтсортировать по возрастанию или по убыванию?\n')
-                    if sort_order == 'по возрастанию':
-                        sorted_transactions = sorted(transactions, key=lambda x: x['date'], reverse=False)
-                        print(sorted_transactions)
-                    elif sort_order == 'по убыванию':
-                        sorted_transactions = sorted(transactions, key=lambda x: x['date'], reverse=True)
-                        print(sorted_transactions)
+        with open(r'data/transactions.csv', 'r', encoding='utf-8') as csv_file:
+            sorter = list(csv.DictReader(csv_file, delimiter=';'))
+            date_input = input('Отсортировать операции по дате? Да/Нет\n')
+            if date_input.upper() == 'Да'.upper():
+                sort_order = input('\nОтсортировать по возрастанию или по убыванию?\n')
+                if sort_order.upper() == 'по возрастанию'.upper():
+                    result = sorted(sorter, key=lambda x: x["date"], reverse=False)
+                    for rise in result:
+                        print(rise)
+                elif sort_order.upper() == 'по убыванию'.upper():
+                    result = sorted(sorter, key=lambda x: x["date"], reverse=True)
+                    for decline in result:
+                        print(decline)
 
 # Отсортируем excel
 #     elif hello_input == '3':
-#         date_input = input('\nОтсортировать операции по дате? Да/Нет\n')
-#         if date_input == 'Да':
-#             sort_order = input('\nОтсортировать по возрастанию или по убыванию?\n')
-#             if sort_order == '\nпо возрастанию\n':
-#                 print(sorted(new_list_excel, key=lambda x: x["date"], reverse=False))
-#             if sort_order == '\nпо убыванию\n':
-#                 print(sorted(new_list_excel, key=lambda x: x["date"], reverse=True))
+#
 
 
 
