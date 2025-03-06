@@ -28,11 +28,18 @@ def main():
                       '\n')
 
     str_input_upper = str_input.upper()
-    if str_input_upper in ["EXECUTED", "CANCELED", "PENDING"]:
+    if str_input_upper in {"EXECUTED", "CANCELED", "PENDING"}:
         transactions_filter_status = filter_by_state(transactions, str_input_upper)
         print(f'\nОперации отфильтрованы по статусу {str_input_upper}\n')
     else:
-        print(f'\nОперации отфильтрованы по статусу {str_input_upper}\n')
+        while str_input_upper not in {"EXECUTED", "CANCELED", "PENDING"}:
+            print(f"Статус операции {str_input} недоступен.")
+            str_input = input('Введите статус, по которому необходимо выполнить фильтрацию. '
+                              '\nДоступные для фильтровки статусы: EXECUTED, CANCELED, PENDING'
+                              '\n')
+            str_input_upper = str_input.upper()
+            transactions_filter_status = filter_by_state(transactions, str_input_upper)
+            print(f'\nОперации отфильтрованы по статусу {str_input_upper}\n')
 
 
 # Сортируем по дате:
