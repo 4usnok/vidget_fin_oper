@@ -1,11 +1,9 @@
 import csv
 import json
 import pandas as pd
-from openpyxl import load_workbook
-
-from src.csv_excel_work import new_list_excel
-from src.generators import transactions
-
+from src.utils import func_json
+from src.csv_excel_work import csv_trans, excel_trans
+from src.processing import filter_by_state
 
 def main():
     hello_input = input(f'Привет! Добро пожаловать в программу работы с банковскими транзакциями. '
@@ -17,10 +15,13 @@ def main():
 
     if hello_input == '1':
         print('\nДля обработки выбран JSON-файл\n')
+        transactions = func_json("data/operations.json")
     elif hello_input == '2':
         print('\nДля обработки выбран CSV-файл\n')
+        transactions = csv_trans("data/transactions.csv")
     elif hello_input == '3':
         print('\nДля обработки выбран XLSX-файл\n')
+        transactions = excel_trans("data/transactions_excel.xlsx")
 
     str_input = input('Введите статус, по которому необходимо выполнить фильтрацию. '
                       '\nДоступные для фильтровки статусы: EXECUTED, CANCELED, PENDING'
@@ -28,11 +29,11 @@ def main():
 
     str_input_upper = str_input.upper()
     if str_input_upper in ["EXECUTED", "CANCELED", "PENDING"]:
+        transactions_filter_status = filter_by_state(transactions, str_input_upper)
         print(f'\nОперации отфильтрованы по статусу {str_input_upper}\n')
     else:
-        print(f'Статус операции {str_input_upper} недоступен. '
-              f'\nВведите статус, по которому необходимо выполнить фильтрацию. '
-              f'\nДоступные для фильтровки статусы: EXECUTED, CANCELED, PENDING')
+        print(f'\nОперации отфильтрованы по статусу {str_input_upper}\n')
+
 
 # Сортируем по дате:
 # Отсортируем json
@@ -66,8 +67,13 @@ def main():
                         print(decline)
 
 # Отсортируем excel
-#     elif hello_input == '3':
-#
+    elif hello_input == '3':
+        workbook = pd.read_excel('data/transactions_excel.xlsx')
+        string_book = str(workbook['date'])
+        result = sorted(workbook, key=lambda x: x[string_book], reverse=True)
+        print(result)
+
+
 
 
 
