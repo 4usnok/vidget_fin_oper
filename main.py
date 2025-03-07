@@ -1,6 +1,3 @@
-import csv
-import json
-from datetime import datetime
 from src.utils import func_json
 from src.csv_excel_work import csv_trans, excel_trans
 from src.processing import filter_by_state
@@ -49,9 +46,9 @@ def main():
         if date_input.upper() == 'Да'.upper():
             sort_order = input('\nОтсортировать по возрастанию или по убыванию?\n')
             if sort_order.upper() == 'по возрастанию'.upper():
-                sorted(transactions_filter_status, key=lambda x: x["date"], reverse=False)
+                transactions_filter_status = sorted(transactions_filter_status, key=lambda x: x["date"], reverse=False)
             elif sort_order.upper() == 'по убыванию'.upper():
-                sorted(transactions_filter_status, key=lambda x: x["date"], reverse=True)
+                transactions_filter_status = sorted(transactions_filter_status, key=lambda x: x["date"], reverse=True)
 
 
 # Отсортируем csv
@@ -79,7 +76,7 @@ def main():
 # Напишем код для
     sort_trans_by_keyword = input('\nОтфильтровать список транзакций по определенному слову в описании? Да/Нет\n')
     if sort_trans_by_keyword.upper() == 'Да'.upper():
-        print('\nРаспечатываю итоговый список транзакций...\n{transactions_filter_status}')
+        print(f'\nРаспечатываю итоговый список транзакций...\n{transactions_filter_status}')
 
 
 
