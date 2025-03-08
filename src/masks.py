@@ -41,3 +41,4 @@ def get_mask_account(number_card_2: str) -> str:
         logging.error(f"Произошла ошибка: {ex}")
     # С помощью метода join(), мы сможем избавить строку от лишних символов
     return "".join(join_number_card)
+
