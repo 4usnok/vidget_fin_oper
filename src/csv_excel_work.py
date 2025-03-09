@@ -11,8 +11,8 @@ def csv_trans(path_only_csv):
     Функция считывания финансовых операций файла с расширением CSV
     """
     new_list_csv = []
-    with open(path_only_csv) as file:
-        csv_reader = csv.DictReader(file)
+    with open(path_only_csv, encoding="utf-8") as file:
+        csv_reader = csv.DictReader(file, delimiter=";")
         # Напишем цикл, который будет добавлять словари в наш пустой список
         for row in csv_reader:
             new_list_csv.append(row)
@@ -23,12 +23,8 @@ def excel_trans(path_only_excel):
     """
     Функция считывания финансовых операций файла с расширением XLSX
     """
-    new_list_excel = []
     df = pd.read_excel(path_only_excel)
-    df_1 = df.to_dict()
-    # Добавим в пустой список наши словари
-    new_list_excel.append(df_1)
-    return new_list_excel
+    return df.to_dict(orient="records")
 
 
 # print(excel_trans(path_excel))
