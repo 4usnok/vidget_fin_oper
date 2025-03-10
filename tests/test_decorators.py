@@ -1,7 +1,7 @@
 import src.decorators
 from src.decorators import my_function
 import unittest
-
+import pytest
 
 def test_log(capsys):
     my_function(1, 2)
@@ -17,6 +17,16 @@ class Testlog(unittest.TestCase):
         self.assertEqual(src.decorators.my_function(-1, 1), 0)
         self.assertEqual(src.decorators.my_function(0, 0), 0)
 
+@pytest.mark.parametrize(
+    "info, expected", [
+        ((1, 2), 3),
+        ((-1, 2), 1),
+        ((-1, 1), 0),
+        ((0, 0), 0)
+    ]
+)
+def test_my_function(info, expected):
+    assert my_function(*info) == expected
 
 if __name__ == "__main__":
     unittest.main()
