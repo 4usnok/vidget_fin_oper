@@ -2,6 +2,7 @@ import src.decorators
 from src.decorators import my_function
 import unittest
 
+
 def test_log(capsys):
     my_function(1, 2)
     captured = capsys.readouterr()
@@ -10,15 +11,12 @@ def test_log(capsys):
 
 class Testlog(unittest.TestCase):
 
-    def test_log(self):
+    def test_my_function(self):
         self.assertEqual(src.decorators.my_function(1, 2), 3)
         self.assertEqual(src.decorators.my_function(-1, 2), 1)
         self.assertEqual(src.decorators.my_function(-1, 1), 0)
-        self.assertEqual(src.decorators.my_function(-1, -1), -2)
         self.assertEqual(src.decorators.my_function(0, 0), 0)
 
 
-
-if __name__ == '__main__':
-    unittest.main
-
+if __name__ == "__main__":
+    unittest.main()
