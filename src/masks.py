@@ -3,7 +3,7 @@ import logging
 
 logger = logging.getLogger("masks.py")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("D:\\Projects_from_skypro\\PythonProject_1\\logs\\masks.log", mode="w")
+file_handler = logging.FileHandler("../masks.log", mode="w")
 file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
@@ -41,3 +41,4 @@ def get_mask_account(number_card_2: str) -> str:
         logging.error(f"Произошла ошибка: {ex}")
     # С помощью метода join(), мы сможем избавить строку от лишних символов
     return "".join(join_number_card)
+
