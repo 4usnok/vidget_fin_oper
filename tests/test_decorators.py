@@ -12,7 +12,13 @@ class Testlog(unittest.TestCase):
 
     def test_log(self):
         self.assertEqual(src.decorators.my_function(1, 2), 3)
+        self.assertEqual(src.decorators.my_function(-1, 2), 1)
+        self.assertEqual(src.decorators.my_function(-1, 1), 0)
+        self.assertEqual(src.decorators.my_function(-1, -1), -2)
+        self.assertEqual(src.decorators.my_function(0, 0), 0)
+
 
 
 if __name__ == '__main__':
     unittest.main
+
