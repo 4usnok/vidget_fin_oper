@@ -1,7 +1,5 @@
 import re
 
-from src.generators import descriptions
-
 
 def filter_by_state(set_of_dict: list, state: str = "EXECUTED") -> list:
     """

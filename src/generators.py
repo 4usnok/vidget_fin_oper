@@ -67,12 +67,12 @@ def filter_by_currency(transactions: list, key: str) -> Iterator[Dict]:
         transactions)
 
 # В этом генераторе, мы задаём количество выведенных на экран списков словарей
-usd_transactions = filter_by_currency(transactions, "USD")
-for _ in range(2):
-    print(next(usd_transactions))
+# usd_transactions = filter_by_currency(transactions, "USD")
+# for _ in range(2):
+#     print(next(usd_transactions))
 
 
-def transaction_descriptions(transactions: list) -> Generator[list, str]:
+def transaction_descriptions(transactions: list) -> Generator[str, None, None]:
     """
     Генератор, принимает список словарей с транзакциями и
     возвращает описание каждой операции по очереди.
@@ -81,12 +81,12 @@ def transaction_descriptions(transactions: list) -> Generator[list, str]:
         yield transaction["description"]
 
 
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
+# descriptions = transaction_descriptions(transactions)
+# for _ in range(5):
+#     print(next(descriptions))
 
 
-def card_number_generator(start: int, stop: int) -> Generator[str, int]:
+def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
     """
     Генератор может сгенерировать номера карт в заданном диапазоне
     от 0000 0000 0000 0001 до 9999 9999 9999 9999.
@@ -102,8 +102,8 @@ def card_number_generator(start: int, stop: int) -> Generator[str, int]:
 
 
 # В генераторе, мы задаем интервал, в котором начальное значение будет являться - start, а конечное - stop
-for card_number in card_number_generator(1, 5):
-    print(card_number)
+# for card_number in card_number_generator(1, 5):
+#     print(card_number)
 
 
 def filter_by_currency_csv_and_excel(transactions: list[Dict], currency: str) -> Iterator[Dict]:

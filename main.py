@@ -7,9 +7,11 @@ from src.widget import mask_account_card
 
 # Напишем приветственную логику
 res_list = []
+
+
 def main() -> None:
-    hello_input = input(f'Привет! Добро пожаловать в программу работы с банковскими транзакциями. '
-                        f'\nВыберите необходимый пункт меню:'
+    hello_input = input('Привет! Добро пожаловать в программу работы с банковскими транзакциями. '
+                        '\nВыберите необходимый пункт меню:'
                         '\n1. Получить информацию о транзакциях из JSON-файла'
                         '\n2. Получить информацию о транзакциях из CSV-файла'
                         '\n3. Получить информацию о транзакциях из XLSX-файла'
@@ -56,7 +58,7 @@ def main() -> None:
     while True:
         sort_rub = input('\nВыводить только рублевые транзакции? Да/Нет\n')
         if sort_rub.upper() == 'Да'.upper():
-            if "operationAmount" in transactions:
+            if hello_input == "1":
                 transactions = list(filter_by_currency(transactions, "RUB"))
             else:
                 transactions = list(filter_by_currency_csv_and_excel(transactions, "RUB"))
@@ -82,7 +84,7 @@ def main() -> None:
         print(f"\nВсего банковских операций в выборке: {len(transactions)}")
         for trans in transactions:
             print(f"\n{trans.get("date", "")} {trans.get("description", "")}")
-            if "from" in trans:
+            if "from" in trans and type(trans["from"]) is str:
                 print(f"{mask_account_card(trans.get("to", ""))} -> {mask_account_card(trans.get("from", ""))}")
             else:
                 print(f"{mask_account_card(trans.get("to", ""))}")
@@ -99,4 +101,4 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    print(main())
+    main()
