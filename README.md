@@ -6,7 +6,7 @@
 
 1. Клонируйте репозиторий:
 ```
-git clone https://github.com/4usnok/DZ1_Python-basics.git
+git clone git@github.com:4usnok/DZ1_Python-basics.git
 ```
 
 2. Установите зависимости:
