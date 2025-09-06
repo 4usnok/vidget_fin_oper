@@ -9,9 +9,9 @@
 git clone git@github.com:4usnok/DZ1_Python-basics.git
 ```
 
-2. Установите зависимости:
+3. Установите зависимости:
 ```
-pip install -r requirements.txt
+poetry install
 ```
 
 3. Использование разработанных функций:
