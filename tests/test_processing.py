@@ -1,0 +1,120 @@
+import src.processing
+from src.processing import filter_by_state, sort_by_date, filter_trans_by_des
+import pytest
+import unittest
+
+
+@pytest.mark.parametrize(
+    "dict_list, key_value, expected",
+    [
+        (
+            # Первый набор для тестов
+            # dict_list, key_value - входные данные
+            [
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+                {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+            ],
+            "CANCELED",
+            # expected - ожидаемый результат
+            [
+                {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+            ],
+        ),
+            # Второй набор для тестов
+            # dict_list, key_value - входные данные
+        (
+            [
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+                {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+            ],
+            "EXECUTED",
+            # expected - ожидаемый результат
+            [
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+            ],
+        ),
+    ],
+)
+def test_filter_by_state(dict_list, key_value, expected):
+    assert filter_by_state(dict_list, key_value) == expected
+
+
+@pytest.mark.parametrize(
+    "info, expected",
+    [
+        (
+            # набор для тестов
+            # info (входные данные)
+            [
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+                {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+            ],
+            # expected (ожидаемый результат)
+            [
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+                {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+                {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+            ],
+        )
+    ],
+)
+def test_sort_by_date(info, expected):
+    assert sort_by_date(info) == expected
+
+@pytest.mark.parametrize("info, expected", [
+    (
+        # набор для тестов
+        # info (входные данные)
+        [
+            {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364", "description": "Transaction 1"},
+            {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572", "description": "Transaction 2"},
+            {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689", "description": "Transaction 3"},
+            {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441", "description": "Transaction 4"},
+        ],
+        # expected (ожидаемый результат)
+        [
+            {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364", "description": "Transaction 1"},
+            {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572", "description": "Transaction 2"},
+            {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689", "description": "Transaction 3"},
+            {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441", "description": "Transaction 4"},
+        ],
+    )
+],
+)
+def test_filter_trans_by_des(info, expected):
+    assert filter_trans_by_des(info, "Transaction") == expected
+
+
+class TestLog(unittest.TestCase):
+    def test_sort_by_date(self):
+        transactions = [
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+                {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+            ]
+
+        # Вызов тестируемой функции
+        result = src.processing.sort_by_date(transactions)
+
+        # Ожидаемый результат
+        expected_result = [
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+                {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+                {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+            ]
+        # Проверка результата
+        self.assertEqual(result, expected_result)
+
+if __name__ == "__main__":
+    unittest.main()
